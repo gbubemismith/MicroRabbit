@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra.Bus", "Infra.Bus", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroRabbit.Infra.Bus", "Infra.Bus\MicroRabbit.Infra.Bus\MicroRabbit.Infra.Bus.csproj", "{A88B6ABD-00E2-44C3-9F24-15D5F02EB013}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra.IoC", "Infra.IoC", "{B4060425-D5EA-401A-8CE6-F1E00E0F942E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroRabbit.Infra.IoC", "Infra.IoC\MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj", "{7781D82C-723A-4643-9C4A-AF6E1858FFDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +52,22 @@ Global
 		{A88B6ABD-00E2-44C3-9F24-15D5F02EB013}.Release|x64.Build.0 = Release|Any CPU
 		{A88B6ABD-00E2-44C3-9F24-15D5F02EB013}.Release|x86.ActiveCfg = Release|Any CPU
 		{A88B6ABD-00E2-44C3-9F24-15D5F02EB013}.Release|x86.Build.0 = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|x64.Build.0 = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Debug|x86.Build.0 = Debug|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|x64.Build.0 = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|x86.ActiveCfg = Release|Any CPU
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{961278BC-4679-46A3-AF06-AE2EB8B0BD4D} = {419632F2-F15F-4FA5-ACA7-435CE69E76AE}
 		{A88B6ABD-00E2-44C3-9F24-15D5F02EB013} = {3C33F8D7-7396-4816-9E60-E8EBFBCE46F8}
+		{7781D82C-723A-4643-9C4A-AF6E1858FFDF} = {B4060425-D5EA-401A-8CE6-F1E00E0F942E}
 	EndGlobalSection
 EndGlobal
