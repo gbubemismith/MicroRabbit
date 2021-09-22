@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using MicroRabbit.Banking.Infrastructure.Data;
 using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,8 @@ namespace MicroRabbit.Banking.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroRabbit.Banking.Api", Version = "v1" });
             });
+
+            services.AddMediatR(typeof(Startup));
 
             RegisterServcices(services);
         }
