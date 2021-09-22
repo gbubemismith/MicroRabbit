@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MicroRabbit.Banking.Application.Interfaces;
+using MicroRabbit.Banking.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroRabbit.Banking.Api.Controllers
@@ -20,6 +21,13 @@ namespace MicroRabbit.Banking.Api.Controllers
             var accounts = await _accountService.GetAccounts();
 
             return Ok(accounts);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TransferFunds(AccountTransfer accountTransfer)
+        {
+            await _accountService.TransferFunds(accountTransfer);
+            return Ok(null);
         }
     }
 }
