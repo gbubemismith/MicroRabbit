@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
+using MicroRabbit.Infra.IoC;
+using MicroRabbit.Transfer.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,10 +32,24 @@ namespace MicroRabbit.Transfer.Api
         {
 
             services.AddControllers();
+            services.AddDbContext<TransferDbContext>(x =>
+            {
+                string connStr = Configuration.GetConnectionString("TransferConnection");
+                x.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroRabbit.Transfer.Api", Version = "v1" });
             });
+
+            services.AddMediatR(typeof(Startup));
+
+            RegisterServcices(services);
+        }
+
+        private void RegisterServcices(IServiceCollection services)
+        {
+            DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

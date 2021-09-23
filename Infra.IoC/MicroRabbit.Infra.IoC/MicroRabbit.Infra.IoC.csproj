@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infra.Bus\MicroRabbit.Infra.Bus\MicroRabbit.Infra.Bus.csproj" />
     <ProjectReference Include="..\..\MicroServices\Banking\Application\MicroRabbit.Banking.Application\MicroRabbit.Banking.Application.csproj" />
+    <ProjectReference Include="..\..\MicroServices\Transfer\Application\MicroRabbit.Transfer.Application\MicroRabbit.Transfer.Application.csproj" />
   </ItemGroup>
 
 </Project>
