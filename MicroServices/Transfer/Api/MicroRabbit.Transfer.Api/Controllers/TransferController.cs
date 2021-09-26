@@ -17,6 +17,13 @@ namespace MicroRabbit.Transfer.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTransferLogs()
         {
+            string check = null;
+
+            if (check is not { })
+            {
+                //
+            }
+
             var transfers = await _transferService.GetTransfers();
 
             return Ok(transfers);

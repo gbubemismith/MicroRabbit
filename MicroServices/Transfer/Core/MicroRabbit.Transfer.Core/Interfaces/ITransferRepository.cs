@@ -7,5 +7,6 @@ namespace MicroRabbit.Transfer.Core.Interfaces
     public interface ITransferRepository
     {
         Task<IEnumerable<TransferLog>> GetTransfers();
+        void Add(TransferLog transferLog);
     }
 }

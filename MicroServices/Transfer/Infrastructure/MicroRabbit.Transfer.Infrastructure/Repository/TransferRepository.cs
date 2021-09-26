@@ -15,6 +15,13 @@ namespace MicroRabbit.Transfer.Infrastructure.Repository
         {
             _context = context;
         }
+
+        public void Add(TransferLog transferLog)
+        {
+            _context.TransferLog.Add(transferLog);
+            _context.SaveChanges();
+        }
+
         public async Task<IEnumerable<TransferLog>> GetTransfers()
         {
             return await _context.TransferLog.ToListAsync();

@@ -8,6 +8,7 @@ using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Domain.Core.Commands;
 using MicroRabbit.Domain.Core.Events;
+using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -18,8 +19,10 @@ namespace MicroRabbit.Infra.Bus
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
         private readonly List<Type> _eventTypes;
-        public RabbitMQBus(IMediator mediator)
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+        public RabbitMQBus(IMediator mediator, IServiceScopeFactory serviceScopeFactory)
         {
+            _serviceScopeFactory = serviceScopeFactory;
             _mediator = mediator;
             _handlers = new Dictionary<string, List<Type>>();
             _eventTypes = new List<Type>();
@@ -96,9 +99,9 @@ namespace MicroRabbit.Infra.Bus
             {
                 await ProcessEvent(eventName, message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
                 throw;
             }
         }
@@ -107,18 +110,26 @@ namespace MicroRabbit.Infra.Bus
         {
             if (_handlers.ContainsKey(eventName))
             {
-                var subscriptions = _handlers[eventName];
-                foreach (var subscription in subscriptions)
+                using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var handler = Activator.CreateInstance(subscription);
+                    var subscriptions = _handlers[eventName];
+                    foreach (var subscription in subscriptions)
+                    {
+                        //using constructor
+                        // var handler = Activator.CreateInstance(subscription);
 
-                    if (handler is { }) continue;
+                        var handler = scope.ServiceProvider.GetService(subscription);
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.WriteLine($"Here is the handler {handler}");
 
-                    var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
-                    var @event = JsonSerializer.Deserialize(message, eventType);
-                    var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+                        if (handler == null) continue;
 
-                    await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
+                        var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
+                        var @event = JsonSerializer.Deserialize(message, eventType);
+                        var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
+                    }
                 }
             }
         }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.IoC;
+using MicroRabbit.Transfer.Core.EventHandlers;
+using MicroRabbit.Transfer.Core.Events;
 using MicroRabbit.Transfer.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -72,6 +75,15 @@ namespace MicroRabbit.Transfer.Api
             {
                 endpoints.MapControllers();
             });
+
+
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<TransferCreatedEvent, TransferEventHandler>();
         }
     }
 }
